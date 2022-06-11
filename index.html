@@ -1,12 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Weather Dashboard</title>
+  <link rel="stylesheet" href="./assets/style.css">
 </head>
+
 <body>
-  
+  <h1>Weather Dashboard</h1>
+  <div id="body-box">
+    <aside id="left">
+      <h2>Search for a City:</h2>
+      <input type="text" placeholder="San Diego" id="city-name" />
+      <button type="submit">Submit</button>
+    </aside>
+    <div id="right">
+      <div>
+        <h2 id="current-city-date">Current City (Date)</h2>
+        <div class="weather-comp">Temp
+          <p id="tmp"></p>
+        </div>
+        <div class="weather-comp">Wind
+          <p id="wnd"></p>
+        </div>
+        <div class="weather-comp">Humidity
+          <p id="hmdty"></p>
+        </div>
+        <div class="weather-comp">UV Index
+          <p id="uv-indx"></p>
+        </div>
+      </div>
+      <div>
+        <h3>5-Day Forecast:</h3>
+        <div class="day-box" id="day-one"></div>
+        <div class="day-box" id="day-two"></div>
+        <div class="day-box" id="day-three"></div>
+        <div class="day-box" id="day-four"></div>
+        <div class="day-box" id="day-five"></div>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>

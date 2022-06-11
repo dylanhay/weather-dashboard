@@ -1,0 +1,32 @@
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  /* padding: 3%; */
+}
+
+body h1 {
+  width: 100%;
+  background-color: #464fcb;
+  color: #ffffff;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#body-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#left {
+  flex: 1 0 200px;
+  background-color: aqua;
+  padding-left: 15px;
+}
+
+#right {
+  flex: 6 0 200px;
+  background-color:coral;
+  padding-left: 15px;
+  height: 100%;
+}

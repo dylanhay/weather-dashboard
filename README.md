@@ -1,7 +1,7 @@
 # Work Day Scheduler
 
 ## Purpose
-A website with customizable events that can be locally saved.
+A website that retrieves and displays weather data for cities.
 
 ## Built With
 * HTML
@@ -9,10 +9,10 @@ A website with customizable events that can be locally saved.
 * JavaScript
 
 ## Website
-https://dylanhay.github.io/work-day-scheduler/
+
 
 ## Landing Page
-![Screenshot](./assets/wds-land.png "Mock Up")
+
 
 ## Contribution
 Made with ❤️ by Dylan Hay
