@@ -12,6 +12,7 @@ var formSubmitHandler = function (event) {
 
   if (cityname) {
     getWeather(cityname);
+    getForecast(cityname);
     nameInputEl.value = "";
   } else {
     alert("Please enter a city");
@@ -20,9 +21,9 @@ var formSubmitHandler = function (event) {
 };
 
 var getWeather = function (city) {
-  // format the OpenWeather query URL
+  // OpenWeather query URL for current weather
   var queryURL =
-    "http://api.openweathermap.org/data/2.5/forecast?q=" +
+    "http://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&appid=" +
     APIKey;
@@ -35,13 +36,117 @@ var getWeather = function (city) {
   });
 };
 
+var getForecast = function (city) {
+  // OpenWeather query URL for forecast
+  var queryURL =
+    "http://api.openweathermap.org/data/2.5/forecast?q=" +
+    city +
+    "&appid=" +
+    APIKey;
+
+  // make a request to the url
+  fetch(queryURL).then(function (response) {
+    response.json().then(function (data) {
+      console.log("placeholder");
+      // displayForecast(data, city);
+    });
+  });
+};
+
 var displayWeather = function (weather, searchTerm) {
   console.log(weather);
   console.log(searchTerm);
   // clear old content
   cityContainerEl.textContent = "";
   citySearchTerm.textContent = searchTerm;
-  
+
+  //convert date from unix
+  var weatherMS = weather.dt * 1000;
+  console.log(weatherMS);
+  const dateObject = new Date(weatherMS);
+  const month = dateObject.toLocaleString("en-US", { month: "long" });
+  const day = dateObject.toLocaleString("en-US", { day: "numeric" });
+  const year = dateObject.toLocaleString("en-US", { year: "numeric" });
+  const dateFormatted = month + " " + day + ", " + year;
+
+  // format city name and current date
+  var cityNameDate = searchTerm + " - " + dateFormatted;
+
+  // create a container for the current city and date
+  var cityEl = document.createElement("div");
+  cityEl.classList = "list-item flex-row justify-space-between align-center";
+
+  // create a span element to hold the city name and current date
+  var titleEl = document.createElement("span");
+  titleEl.textContent = cityNameDate;
+
+  // append to container
+  cityEl.appendChild(titleEl);
+
+  // append container to the dom
+  cityContainerEl.appendChild(cityEl);
+
+  //convert temp from Kelvin to Celsius
+  var tempK = weather.main.temp;
+  var tempC = tempK - 273.15;
+  var tempCInt = Math.round(tempC);
+  var tempFormat = tempCInt + "\u00B0" + "C";
+
+  // create a container for the current city and date
+  var currentWeatherEl = document.createElement("div");
+  currentWeatherEl.classList = "list-item";
+
+  // create a span element to hold the current temp
+  var tempEl = document.createElement("span");
+  tempEl.textContent = "Temperature: " + tempFormat;
+  tempEl.classList = "list-element";
+
+  // append to container
+  cityEl.appendChild(tempEl);
+
+  // append container to the dom
+  cityContainerEl.appendChild(tempEl);
+
+  //convert wind from metres/second to miles/hour
+  var windMetresSec = weather.wind.speed;
+  var windMPH = windMetresSec * 2.23694;
+  var windMPH2 = windMPH.toFixed(2);
+  var windFormat = windMPH2 + " MPH";
+  console.log(windFormat);
+
+  // create a span element to hold the current wind speed
+  var windEl = document.createElement("span");
+  windEl.classList = "list-element";
+  windEl.textContent = "Wind: " + windFormat;
+
+  // append to container
+  cityEl.appendChild(windEl);
+
+  // append container to the dom
+  cityContainerEl.appendChild(windEl);
+
+  //convert humidity from metres/second to miles/hour
+  var humNumeric = weather.main.humidity;
+  var humFormat = humNumeric + "%";
+
+  // create a span element to hold the current wind speed
+  var humEl = document.createElement("span");
+  humEl.classList = "list-element";
+  humEl.textContent = "Humidity: " + humFormat;
+
+  // append to container
+  cityEl.appendChild(humEl);
+
+  // append container to the dom
+  cityContainerEl.appendChild(humEl);
+};
+
+var displayForecast = function (weather, searchTerm) {
+  console.log(weather);
+  // console.log(searchTerm);
+  // clear old content
+  // cityContainerEl.textContent = "";
+  // citySearchTerm.textContent = searchTerm;
 };
 
 cityFormEl.addEventListener("submit", formSubmitHandler);

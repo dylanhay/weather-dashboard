@@ -42,6 +42,10 @@ p {
   font-size: 1.2rem;
 }
 
+.list-element {
+  display: block;
+}
+
  .btn {
   font-size: 1.3rem;
   text-decoration:none;
