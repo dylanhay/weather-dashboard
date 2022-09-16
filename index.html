@@ -19,12 +19,28 @@
   <body class="flex-column min-100-vh">
     <header class="hero">
       <h1 class="app-title"><i class="fab fa-github"></i> Weather Dashboard</h1>
-      <p>
-        Search for a city:
-      </p>
     </header>
 
-    <main class="flex-row justify-space-between"></main>
+    <main class="flex-row justify-space-between">
+      <div class="col-12 col-md-4">
+        <div class="card">
+          <h3 class="card-header text-uppercase">Search for a City:</h3>
+          <form id="city-form" class="card-body">
+            <!-- <label class="form-label" for="username">City Name</label> -->
+            <input
+              name="cityname"
+              id="cityname"
+              type="text"
+              autofocus="true"
+              class="form-input"
+            />
+            <button type="submit" class="btn">Search</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-8"></div>
+    </main>
     <script src="./assets/js/homepage.js"></script>
   </body>
 </html>
