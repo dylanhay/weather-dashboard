@@ -59,7 +59,7 @@ var formSubmitHandler = function (event) {
   if (cityname) {
     getWeather(cityname);
     getForecast(cityname);
-    // displaySearchHistory(cityname);
+    displaySearchHistory(cityname);
     nameInputEl.value = "";
   }  else {
     alert("Please enter a city");
@@ -193,7 +193,7 @@ const displaySearchHistory = function (searchTerm) {
   let searchEl = document.createElement("div");
   searchEl.textContent = searchTerm;
   searchEl.classList = "list-item flex-row align-center justify-center";
-  // searchEl.addEventListener("click", console.log('yup'));
+  searchEl.onclick = function () {histButtonHandler(searchTerm)};
 
   // append search div to parent history container
   historyContainerEl.appendChild(searchEl);
@@ -210,7 +210,7 @@ const histButtonHandler = function (cityname) {
   // if (cityname) {
   getWeather(cityname);
   getForecast(cityname);
-  displaySearchHistory(cityname);
+  // displaySearchHistory(cityname);
   // nameInputEl.value = "";
   // } else {
   //   alert("Please enter a city");
