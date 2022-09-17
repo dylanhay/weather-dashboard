@@ -4,6 +4,7 @@ var cityFormEl = document.querySelector("#city-form");
 var nameInputEl = document.querySelector("#cityname");
 var cityContainerEl = document.querySelector("#city-container");
 var citySearchTerm = document.querySelector("#city-search-term");
+var forecastContainerEl = document.querySelector("#forecast-container");
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
@@ -143,6 +144,34 @@ var displayWeather = function (weather, searchTerm) {
 
 var displayForecast = function (weather, searchTerm) {
   console.log(weather);
+
+  // for (var i = 0; i < 5; i++) {
+  //   // format repo name
+  //   var weatherParent = repos[i].owner.login + "/" + repos[i].name;
+
+  //   // create a container for each repo
+  //   var repoEl = document.createElement("div");
+  //   repoEl.classList = "list-item flex-row justify-space-between align-center";
+
+  //   // create a span element to hold repository name
+  //   var titleEl = document.createElement("span");
+  //   titleEl.textContent = repoName;
+
+  //   // append to container
+  //   repoEl.appendChild(titleEl);
+
+  //   // create a status element
+  //   var statusEl = document.createElement("span");
+  //   statusEl.classList = "flex-row align-center";
+
+  //   // append to container
+  //   repoEl.appendChild(statusEl);
+
+  //   // append container to the dom
+  //   repoContainerEl.appendChild(repoEl);
+  // }
+
+
   // console.log(searchTerm);
   // clear old content
   // cityContainerEl.textContent = "";
