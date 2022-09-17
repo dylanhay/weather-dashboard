@@ -159,21 +159,20 @@ var displayWeather = function (weather, searchTerm) {
 
 const displayForecast = function (weather, searchTerm) {
   // clear old content
-  // forecastContainerEl.textContent = "";
+  forecastContainerEl.textContent = "";
 
-  console.log(weather);
+  // console.log(weather);
+  // console.log(numericDate);
+  // console.log(celsiusTemp);
+  // console.log(windMPHF);
+  // console.log(humidityPerc);
 
-  let numericDate = shortDateFormat(weather.list[6].dt);
-  console.log(numericDate);
+  for (var i = 6; i < 40; i+=8) {
 
-  let celsiusTemp = tempKtoC(weather.list[6].main.temp);
-  console.log(celsiusTemp);
-
-  let windMPHF = windMStoMPH(weather.list[6].wind.speed);
-  console.log(windMPHF);
-
-  let humidityPerc = humFormatter(weather.list[6].main.humidity);
-  console.log(humidityPerc);
+  let numericDate = shortDateFormat(weather.list[i].dt);
+  let celsiusTemp = tempKtoC(weather.list[i].main.temp);
+  let windMPHF = windMStoMPH(weather.list[i].wind.speed);
+  let humidityPerc = humFormatter(weather.list[i].main.humidity);
 
   // create a container for the day
   let dayEl = document.createElement("div");
@@ -204,6 +203,8 @@ const displayForecast = function (weather, searchTerm) {
 
   // append day div to parent forecast container
   forecastContainerEl.appendChild(dayEl);
+
+}
 
   // for (var i = 0; i < 5; i++) {
   //   // format repo name
