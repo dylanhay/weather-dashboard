@@ -6,9 +6,52 @@ var cityContainerEl = document.querySelector("#city-container");
 var citySearchTerm = document.querySelector("#city-search-term");
 var forecastContainerEl = document.querySelector("#forecast-container");
 
+//convert unix timestamp to MM/DD/YYYY
+const shortDateFormat = function (unixDate) {
+  let weatherMS = unixDate * 1000;
+  let dateObject = new Date(weatherMS);
+  let month = dateObject.toLocaleString("en-US", { month: "numeric" });
+  let day = dateObject.toLocaleString("en-US", { day: "numeric" });
+  let year = dateObject.toLocaleString("en-US", { year: "numeric" });
+  let dateFormatted = month + "/" + day + "/" + year;
+  return dateFormatted;
+};
+
+//convert unix timestamp to long format (ex. September 13, 2022)
+const longDateFormat = function (unixDate) {
+  let weatherMS = unixDate * 1000;
+  let dateObject = new Date(weatherMS);
+  let month = dateObject.toLocaleString("en-US", { month: "long" });
+  let day = dateObject.toLocaleString("en-US", { day: "numeric" });
+  let year = dateObject.toLocaleString("en-US", { year: "numeric" });
+  let dateFormatted = month + " " + day + ", " + year;
+  return dateFormatted;
+};
+
+//convert kelvin temperature to degC
+const tempKtoC = function (tempK) {
+  let tempC = tempK - 273.15;
+  let tempCInt = Math.round(tempC);
+  let tempFormat = tempCInt + "\u00B0" + "C";
+  return tempFormat;
+};
+
+//convert wind speed from metres/sec to mph
+const windMStoMPH = function (windMS) {
+  var windMPH = (windMS * 2.23694).toFixed(2);
+  var windFormat = windMPH + " MPH";
+  return windFormat;
+};
+
+//format humidity to include percentage symbol
+const humFormatter = function (humNumeric) {
+  let humFormat = humNumeric + "%";
+  return humFormat;
+};
+
+// get value from form input
 var formSubmitHandler = function (event) {
   event.preventDefault();
-  // get value from input element
   var cityname = nameInputEl.value.trim();
 
   if (cityname) {
@@ -18,18 +61,16 @@ var formSubmitHandler = function (event) {
   } else {
     alert("Please enter a city");
   }
-  // console.log(event);
 };
 
+// OpenWeather queryURL and request for current weather
 var getWeather = function (city) {
-  // OpenWeather query URL for current weather
   var queryURL =
     "http://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&appid=" +
     APIKey;
 
-  // make a request to the url
   fetch(queryURL).then(function (response) {
     response.json().then(function (data) {
       displayWeather(data, city);
@@ -37,38 +78,29 @@ var getWeather = function (city) {
   });
 };
 
+// OpenWeather queryURL and request for weather forecast
 var getForecast = function (city) {
-  // OpenWeather query URL for forecast
   var queryURL =
     "http://api.openweathermap.org/data/2.5/forecast?q=" +
     city +
     "&appid=" +
     APIKey;
 
-  // make a request to the url
   fetch(queryURL).then(function (response) {
     response.json().then(function (data) {
-      console.log("placeholder");
-      // displayForecast(data, city);
+      displayForecast(data, city);
     });
   });
 };
 
+//build and display front-end for current weather
 var displayWeather = function (weather, searchTerm) {
-  console.log(weather);
-  console.log(searchTerm);
   // clear old content
   cityContainerEl.textContent = "";
   citySearchTerm.textContent = searchTerm;
 
-  //convert date from unix
-  var weatherMS = weather.dt * 1000;
-  console.log(weatherMS);
-  const dateObject = new Date(weatherMS);
-  const month = dateObject.toLocaleString("en-US", { month: "long" });
-  const day = dateObject.toLocaleString("en-US", { day: "numeric" });
-  const year = dateObject.toLocaleString("en-US", { year: "numeric" });
-  const dateFormatted = month + " " + day + ", " + year;
+  //convert date from unix timestamp
+  let dateFormatted = longDateFormat(weather.dt);
 
   // format city name and current date
   var cityNameDate = searchTerm + " - " + dateFormatted;
@@ -81,17 +113,14 @@ var displayWeather = function (weather, searchTerm) {
   var titleEl = document.createElement("span");
   titleEl.textContent = cityNameDate;
 
-  // append to container
+  // append title span to container
   cityEl.appendChild(titleEl);
 
-  // append container to the dom
+  // append city div to parent container
   cityContainerEl.appendChild(cityEl);
 
   //convert temp from Kelvin to Celsius
-  var tempK = weather.main.temp;
-  var tempC = tempK - 273.15;
-  var tempCInt = Math.round(tempC);
-  var tempFormat = tempCInt + "\u00B0" + "C";
+  let tempFormat = tempKtoC(weather.main.temp);
 
   // create a container for the current city and date
   var currentWeatherEl = document.createElement("div");
@@ -102,48 +131,79 @@ var displayWeather = function (weather, searchTerm) {
   tempEl.textContent = "Temperature: " + tempFormat;
   tempEl.classList = "list-element";
 
-  // append to container
-  cityEl.appendChild(tempEl);
-
-  // append container to the dom
+  // append temp span to container
   cityContainerEl.appendChild(tempEl);
 
   //convert wind from metres/second to miles/hour
-  var windMetresSec = weather.wind.speed;
-  var windMPH = windMetresSec * 2.23694;
-  var windMPH2 = windMPH.toFixed(2);
-  var windFormat = windMPH2 + " MPH";
-  console.log(windFormat);
+  let windFormat = windMStoMPH(weather.wind.speed);
 
   // create a span element to hold the current wind speed
   var windEl = document.createElement("span");
   windEl.classList = "list-element";
   windEl.textContent = "Wind: " + windFormat;
 
-  // append to container
-  cityEl.appendChild(windEl);
-
-  // append container to the dom
+  // append wind span to container
   cityContainerEl.appendChild(windEl);
 
   //convert humidity from metres/second to miles/hour
-  var humNumeric = weather.main.humidity;
-  var humFormat = humNumeric + "%";
+  let humFormat = humFormatter(weather.main.humidity);
 
   // create a span element to hold the current wind speed
   var humEl = document.createElement("span");
   humEl.classList = "list-element";
   humEl.textContent = "Humidity: " + humFormat;
 
-  // append to container
-  cityEl.appendChild(humEl);
-
-  // append container to the dom
+  // append humidity span to container
   cityContainerEl.appendChild(humEl);
 };
 
-var displayForecast = function (weather, searchTerm) {
+const displayForecast = function (weather, searchTerm) {
+  // clear old content
+  // forecastContainerEl.textContent = "";
+
   console.log(weather);
+
+  let numericDate = shortDateFormat(weather.list[6].dt);
+  console.log(numericDate);
+
+  let celsiusTemp = tempKtoC(weather.list[6].main.temp);
+  console.log(celsiusTemp);
+
+  let windMPHF = windMStoMPH(weather.list[6].wind.speed);
+  console.log(windMPHF);
+
+  let humidityPerc = humFormatter(weather.list[6].main.humidity);
+  console.log(humidityPerc);
+
+  // create a container for the day
+  let dayEl = document.createElement("div");
+  dayEl.classList = "col-auto justify-space-between align-center";
+
+  // create a span elements for date, temp, wind and humidity
+  var numericDateEl = document.createElement("span");
+  numericDateEl.classList = "list-element";
+  numericDateEl.textContent = numericDate;
+  
+  var celsiusTempEl = document.createElement("span");
+  celsiusTempEl.classList = "list-element";
+  celsiusTempEl.textContent = "Temperature: " + celsiusTemp;
+  
+  var windEl = document.createElement("span");
+  windEl.classList = "list-element";
+  windEl.textContent = "Wind: " + windMPHF;
+  
+  var humEl = document.createElement("span");
+  humEl.classList = "list-element";
+  humEl.textContent = "Humidity: " + humidityPerc;
+
+  // append date span to container
+  dayEl.appendChild(numericDateEl);
+  dayEl.appendChild(celsiusTempEl);
+  dayEl.appendChild(windEl);
+  dayEl.appendChild(humEl);
+
+  // append day div to parent forecast container
+  forecastContainerEl.appendChild(dayEl);
 
   // for (var i = 0; i < 5; i++) {
   //   // format repo name
@@ -170,7 +230,6 @@ var displayForecast = function (weather, searchTerm) {
   //   // append container to the dom
   //   repoContainerEl.appendChild(repoEl);
   // }
-
 
   // console.log(searchTerm);
   // clear old content
