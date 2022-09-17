@@ -1,4 +1,4 @@
-const APIKey = "3622ba7833d750499f399b0571300cb8";
+const APIKey = "31eb12de988177001ef05a7631d3bf7e";
 
 var cityFormEl = document.querySelector("#city-form");
 var nameInputEl = document.querySelector("#cityname");
@@ -59,7 +59,7 @@ var formSubmitHandler = function (event) {
   if (cityname) {
     getWeather(cityname);
     getForecast(cityname);
-    displaySearchHistory(cityname);
+    // displaySearchHistory(cityname);
     nameInputEl.value = "";
   }  else {
     alert("Please enter a city");
@@ -187,11 +187,13 @@ const displayForecast = function (weather) {
 };
 
 const displaySearchHistory = function (searchTerm) {
+    // event.preventDefault();
+  
   // create a div for the searched city
   let searchEl = document.createElement("div");
   searchEl.textContent = searchTerm;
   searchEl.classList = "list-item flex-row align-center justify-center";
-  searchEl.addEventListener("click", console.log('yup'));
+  // searchEl.addEventListener("click", console.log('yup'));
 
   // append search div to parent history container
   historyContainerEl.appendChild(searchEl);
