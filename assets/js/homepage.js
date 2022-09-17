@@ -99,61 +99,38 @@ var displayWeather = function (weather, searchTerm) {
   cityContainerEl.textContent = "";
   citySearchTerm.textContent = searchTerm;
 
-  //convert date from unix timestamp
+  //format date, title, temp, wind, humidity
   let dateFormatted = longDateFormat(weather.dt);
+  let cityNameDate = searchTerm + " - " + dateFormatted;
+  let tempFormat = tempKtoC(weather.main.temp);
+  let windFormat = windMStoMPH(weather.wind.speed);
+  let humFormat = humFormatter(weather.main.humidity);
 
-  // format city name and current date
-  var cityNameDate = searchTerm + " - " + dateFormatted;
-
-  // create a container for the current city and date
+  // create a container for current city weather
   var cityEl = document.createElement("div");
   cityEl.classList = "list-item flex-row justify-space-between align-center";
 
-  // create a span element to hold the city name and current date
+  // create span elements for title (city/date), temp, wind and humidity
   var titleEl = document.createElement("span");
   titleEl.textContent = cityNameDate;
 
-  // append title span to container
-  cityEl.appendChild(titleEl);
-
-  // append city div to parent container
-  cityContainerEl.appendChild(cityEl);
-
-  //convert temp from Kelvin to Celsius
-  let tempFormat = tempKtoC(weather.main.temp);
-
-  // create a container for the current city and date
-  var currentWeatherEl = document.createElement("div");
-  currentWeatherEl.classList = "list-item";
-
-  // create a span element to hold the current temp
   var tempEl = document.createElement("span");
   tempEl.textContent = "Temperature: " + tempFormat;
   tempEl.classList = "list-element";
 
-  // append temp span to container
-  cityContainerEl.appendChild(tempEl);
-
-  //convert wind from metres/second to miles/hour
-  let windFormat = windMStoMPH(weather.wind.speed);
-
-  // create a span element to hold the current wind speed
   var windEl = document.createElement("span");
   windEl.classList = "list-element";
   windEl.textContent = "Wind: " + windFormat;
 
-  // append wind span to container
-  cityContainerEl.appendChild(windEl);
-
-  //convert humidity from metres/second to miles/hour
-  let humFormat = humFormatter(weather.main.humidity);
-
-  // create a span element to hold the current wind speed
   var humEl = document.createElement("span");
   humEl.classList = "list-element";
   humEl.textContent = "Humidity: " + humFormat;
 
-  // append humidity span to container
+  // append title (city & date), temp, wind, humidity spans to parent container
+  cityEl.appendChild(titleEl);
+  cityContainerEl.appendChild(cityEl);
+  cityContainerEl.appendChild(tempEl);
+  cityContainerEl.appendChild(windEl);
   cityContainerEl.appendChild(humEl);
 };
 
@@ -167,75 +144,43 @@ const displayForecast = function (weather, searchTerm) {
   // console.log(windMPHF);
   // console.log(humidityPerc);
 
-  for (var i = 6; i < 40; i+=8) {
+  for (var i = 6; i < 40; i += 8) {
+    //format date, temp, wind, humidity
+    let numericDate = shortDateFormat(weather.list[i].dt);
+    let celsiusTemp = tempKtoC(weather.list[i].main.temp);
+    let windMPHF = windMStoMPH(weather.list[i].wind.speed);
+    let humidityPerc = humFormatter(weather.list[i].main.humidity);
 
-  let numericDate = shortDateFormat(weather.list[i].dt);
-  let celsiusTemp = tempKtoC(weather.list[i].main.temp);
-  let windMPHF = windMStoMPH(weather.list[i].wind.speed);
-  let humidityPerc = humFormatter(weather.list[i].main.humidity);
+    // create a container for the day
+    let dayEl = document.createElement("div");
+    dayEl.classList = "col-md-5-12 justify-space-between align-center";
 
-  // create a container for the day
-  let dayEl = document.createElement("div");
-  dayEl.classList = "col-auto justify-space-between align-center";
+    // create span elements for date, temp, wind and humidity
+    var numericDateEl = document.createElement("span");
+    numericDateEl.classList = "list-element";
+    numericDateEl.textContent = numericDate;
 
-  // create a span elements for date, temp, wind and humidity
-  var numericDateEl = document.createElement("span");
-  numericDateEl.classList = "list-element";
-  numericDateEl.textContent = numericDate;
-  
-  var celsiusTempEl = document.createElement("span");
-  celsiusTempEl.classList = "list-element";
-  celsiusTempEl.textContent = "Temperature: " + celsiusTemp;
-  
-  var windEl = document.createElement("span");
-  windEl.classList = "list-element";
-  windEl.textContent = "Wind: " + windMPHF;
-  
-  var humEl = document.createElement("span");
-  humEl.classList = "list-element";
-  humEl.textContent = "Humidity: " + humidityPerc;
+    var celsiusTempEl = document.createElement("span");
+    celsiusTempEl.classList = "list-element";
+    celsiusTempEl.textContent = "Temperature: " + celsiusTemp;
 
-  // append date span to container
-  dayEl.appendChild(numericDateEl);
-  dayEl.appendChild(celsiusTempEl);
-  dayEl.appendChild(windEl);
-  dayEl.appendChild(humEl);
+    var windEl = document.createElement("span");
+    windEl.classList = "list-element";
+    windEl.textContent = "Wind: " + windMPHF;
 
-  // append day div to parent forecast container
-  forecastContainerEl.appendChild(dayEl);
+    var humEl = document.createElement("span");
+    humEl.classList = "list-element";
+    humEl.textContent = "Humidity: " + humidityPerc;
 
-}
+    // append date, temp, wind, humidity spans to day div
+    dayEl.appendChild(numericDateEl);
+    dayEl.appendChild(celsiusTempEl);
+    dayEl.appendChild(windEl);
+    dayEl.appendChild(humEl);
 
-  // for (var i = 0; i < 5; i++) {
-  //   // format repo name
-  //   var weatherParent = repos[i].owner.login + "/" + repos[i].name;
-
-  //   // create a container for each repo
-  //   var repoEl = document.createElement("div");
-  //   repoEl.classList = "list-item flex-row justify-space-between align-center";
-
-  //   // create a span element to hold repository name
-  //   var titleEl = document.createElement("span");
-  //   titleEl.textContent = repoName;
-
-  //   // append to container
-  //   repoEl.appendChild(titleEl);
-
-  //   // create a status element
-  //   var statusEl = document.createElement("span");
-  //   statusEl.classList = "flex-row align-center";
-
-  //   // append to container
-  //   repoEl.appendChild(statusEl);
-
-  //   // append container to the dom
-  //   repoContainerEl.appendChild(repoEl);
-  // }
-
-  // console.log(searchTerm);
-  // clear old content
-  // cityContainerEl.textContent = "";
-  // citySearchTerm.textContent = searchTerm;
+    // append day div to parent forecast container
+    forecastContainerEl.appendChild(dayEl);
+  }
 };
 
 cityFormEl.addEventListener("submit", formSubmitHandler);
