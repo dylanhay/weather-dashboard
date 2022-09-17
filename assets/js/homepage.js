@@ -5,6 +5,7 @@ var nameInputEl = document.querySelector("#cityname");
 var cityContainerEl = document.querySelector("#city-container");
 var citySearchTerm = document.querySelector("#city-search-term");
 var forecastContainerEl = document.querySelector("#forecast-container");
+var historyContainerEl = document.querySelector("#search-history");
 
 //convert unix timestamp to MM/DD/YYYY
 const shortDateFormat = function (unixDate) {
@@ -57,6 +58,7 @@ var formSubmitHandler = function (event) {
   if (cityname) {
     getWeather(cityname);
     getForecast(cityname);
+    displaySearchHistory(cityname);
     nameInputEl.value = "";
   } else {
     alert("Please enter a city");
@@ -134,7 +136,7 @@ var displayWeather = function (weather, searchTerm) {
   cityContainerEl.appendChild(humEl);
 };
 
-const displayForecast = function (weather, searchTerm) {
+const displayForecast = function (weather) {
   // clear old content
   forecastContainerEl.textContent = "";
 
@@ -181,6 +183,18 @@ const displayForecast = function (weather, searchTerm) {
     // append day div to parent forecast container
     forecastContainerEl.appendChild(dayEl);
   }
+};
+
+const displaySearchHistory = function (searchTerm) {
+  // create a div for the searched city
+  console.log(searchTerm);
+  
+  let searchEl = document.createElement("div");
+  searchEl.classList = "list-item flex-row align-center justify-center";
+  searchEl.textContent = searchTerm;
+
+  // append search div to parent history container
+  historyContainerEl.appendChild(searchEl);
 };
 
 cityFormEl.addEventListener("submit", formSubmitHandler);
