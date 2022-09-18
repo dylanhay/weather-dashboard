@@ -1,5 +1,7 @@
+//API key for openweatherapp.org/api
 const APIKey = "31eb12de988177001ef05a7631d3bf7e";
 
+//select and declare variables for elements from HTML
 var cityFormEl = document.querySelector("#city-form");
 var nameInputEl = document.querySelector("#cityname");
 var cityContainerEl = document.querySelector("#city-container");
@@ -7,7 +9,9 @@ var citySearchTerm = document.querySelector("#city-search-term");
 var forecastContainerEl = document.querySelector("#forecast-container");
 var historyContainerEl = document.querySelector("#search-history");
 var clearHistoryButton = document.querySelector("#clear-history");
-clearHistoryButton.style.visibility = 'hidden';
+
+//hide clear history button initially
+clearHistoryButton.style.visibility = "hidden";
 
 //convert unix timestamp to MM/DD/YYYY
 const shortDateFormat = function (unixDate) {
@@ -52,6 +56,7 @@ const humFormatter = function (humNumeric) {
   return humFormat;
 };
 
+//display weather icon .png with iconcode as input
 const iconFormatter = function (iconcode) {
   var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
   return iconurl;
@@ -107,8 +112,6 @@ var displayWeather = function (weather, searchTerm) {
   // clear old content
   cityContainerEl.textContent = "";
   citySearchTerm.textContent = searchTerm;
-
-  // console.log(weather);
 
   //format date, title, temp, wind, humidity
   let dateFormatted = longDateFormat(weather.dt);
@@ -166,12 +169,6 @@ const displayForecast = function (weather) {
   // clear old content
   forecastContainerEl.textContent = "";
 
-  console.log(weather);
-  // console.log(numericDate);
-  // console.log(celsiusTemp);
-  // console.log(windMPHF);
-  // console.log(humidityPerc);
-
   for (var i = 7; i < 40; i += 8) {
     //format date, temp, wind, humidity
     let numericDate = shortDateFormat(weather.list[i].dt);
@@ -204,7 +201,7 @@ const displayForecast = function (weather) {
     windEl.classList = "forecast-element";
     windEl.textContent = "Wind: " + windMPHF;
 
-    var humEl = document.createElement("span");
+    var humEl = document.createElement("div");
     humEl.classList = "forecast-element";
     humEl.textContent = "Humidity: " + humidityPerc;
 
@@ -220,53 +217,31 @@ const displayForecast = function (weather) {
   }
 };
 
-// search history
+// display search history elements
 const displaySearchHistory = function (searchTerm) {
   let searchEl = document.createElement("div");
   searchEl.textContent = searchTerm;
   searchEl.classList = "list-item flex-row align-center justify-center";
   searchEl.onclick = function () {
     histButtonHandler(searchTerm);
-    
   };
 
   // append search div to parent history container
   historyContainerEl.appendChild(searchEl);
   //make clear history button visible
-  clearHistoryButton.style.visibility = 'visible';
+  clearHistoryButton.style.visibility = "visible";
 };
 
-//load current weather forecast for historical city button selection
+//load current weather forecast when historical city is selected
 const histButtonHandler = function (cityname) {
   getWeather(cityname);
   getForecast(cityname);
 };
 
-
-const clearHistoryButtonVis = function () {
-
-}
-
-
-
-
+//clear history button functionality
 clearHistoryButton.onclick = function () {
   historyContainerEl.textContent = "";
-  clearHistoryButton.style.visibility = 'hidden';
-}
-
-
-// const clearHistoryHandler = function (event) {
-//   event.preventDefault();
-
-//   if (cityname) {
-//     getWeather(cityname);
-//     getForecast(cityname);
-//     displaySearchHistory(cityname);
-//     nameInputEl.value = "";
-//   } else {
-//     alert("Please enter a city");
-//   }
-// }
+  clearHistoryButton.style.visibility = "hidden";
+};
 
 cityFormEl.addEventListener("submit", formSubmitHandler);

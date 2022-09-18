@@ -1,7 +1,5 @@
-
 :root {
-/* --primary: #9bc1d5; */
---primary: #b3d8e9;
+  --primary: #b3d8e9;
   --secondary: #9caea9;
   --tertiary: #788585;
   --light-dark: #6f6866;
@@ -35,10 +33,6 @@ h6 {
   line-height: 1.25;
 }
 
-/* h2 {
-  padding-bottom: 1%;
-} */
-
 main {
   margin: 20px auto;
   width: 94%;
@@ -48,22 +42,11 @@ p {
   font-size: 1.2rem;
 }
 
-/* .list-element {
-  display: block;
-} */
-
 .flex-parent {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-
-/* .current-element {
-  justify-content: space-between;
-  align-content: center;
-  flex: 0 1 auto;
-} */
-
 
 #search-history {
   font-size: 16px;
@@ -138,8 +121,6 @@ p {
   padding: 0 10px;
   display: inline-block;
   border-radius: var(--border-radius);
-
-  
 }
 
 .list-group {
@@ -147,7 +128,6 @@ p {
   list-style: none;
   border-radius: var(--border-radius);
   box-shadow: 6px 5px var(--light-dark);
-
 }
 
 .list-item {
@@ -184,7 +164,6 @@ p {
   border: 3px solid var(--dark);
   border-radius: var(--border-radius);
   padding: 6px;
-  /* text-align: center; */
 }
 
 .card-header {
@@ -201,7 +180,6 @@ p {
 
 /* CUSTOM */
 
-
 .current-date {
   padding: 1%;
   font-weight: bold;
@@ -216,7 +194,7 @@ p {
 
 #forecast-container {
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   text-align: center;
 }
