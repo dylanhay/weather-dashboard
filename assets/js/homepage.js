@@ -80,7 +80,7 @@ var formSubmitHandler = function (event) {
 // OpenWeather queryURL and request for current weather
 var getWeather = function (city) {
   var queryURL =
-    "http://api.openweathermap.org/data/2.5/weather?q=" +
+    "https://dylanhay.github.io/weather-dashboard/http://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&appid=" +
     APIKey;
