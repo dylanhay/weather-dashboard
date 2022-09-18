@@ -9,7 +9,7 @@ var citySearchTerm = document.querySelector("#city-search-term");
 var forecastContainerEl = document.querySelector("#forecast-container");
 var historyContainerEl = document.querySelector("#search-history");
 var clearHistoryButton = document.querySelector("#clear-history");
-var userSearchHistory = JSON.parse(localStorage.getItem("search")) || [];
+var userSearchHistory = JSON.parse(localStorage.getItem("allEntries")) || [];
 
 //hide clear history button initially
 clearHistoryButton.style.visibility = "hidden";
@@ -72,11 +72,24 @@ var formSubmitHandler = function (event) {
     getWeather(cityname);
     getForecast(cityname);
     displaySearchHistory(cityname);
-    localStorage.setItem("search", JSON.stringify(userSearchHistory));
+    storageSaver(cityname);
     nameInputEl.value = "";
+    console.log(localStorage);
   } else {
     alert("Please enter a city");
   }
+};
+
+//local storage for city search entries
+const storageSaver = function (searchedCity) {
+  var allEntries = JSON.parse(localStorage.getItem("allEntries"));
+  if (allEntries == null) {
+    allEntries = [];
+  }
+  localStorage.setItem("entry", JSON.stringify(searchedCity));
+  // Save allEntries back to local storage
+  allEntries.push(searchedCity);
+  localStorage.setItem("allEntries", JSON.stringify(allEntries));
 };
 
 // OpenWeather queryURL and request for current weather
@@ -168,6 +181,9 @@ var displayWeather = function (weather, searchTerm) {
 
 //build and display front-end for five day forecast
 const displayForecast = function (weather) {
+  
+  console.log(weather);
+  
   // clear old content
   forecastContainerEl.textContent = "";
 
@@ -234,6 +250,29 @@ const displaySearchHistory = function (searchTerm) {
   clearHistoryButton.style.visibility = "visible";
 };
 
+// display local storage div elements
+const displayStorageHistory = function (userSearchHistoryArr) {
+  for (var i = 0; i < userSearchHistoryArr.length; i++) {
+  
+  let searchEl = document.createElement("div");
+  searchEl.textContent = userSearchHistoryArr[i];
+  searchEl.classList = "list-item flex-row align-center justify-center";
+  searchEl.onclick = function () {
+    histButtonHandler(searchEl.textContent);
+  };
+
+  // append search div to parent history container
+  historyContainerEl.appendChild(searchEl);
+  //make clear history button visible
+  clearHistoryButton.style.visibility = "visible";
+};
+};
+
+//display local storage search history on page load
+if (userSearchHistory !== null) {
+  displayStorageHistory(userSearchHistory);
+}
+
 //load current weather forecast when historical city is selected
 const histButtonHandler = function (cityname) {
   getWeather(cityname);
@@ -245,6 +284,7 @@ clearHistoryButton.onclick = function () {
   historyContainerEl.textContent = "";
   clearHistoryButton.style.visibility = "hidden";
   localStorage.clear();
+  console.log(localStorage);
 };
 
 cityFormEl.addEventListener("submit", formSubmitHandler);
