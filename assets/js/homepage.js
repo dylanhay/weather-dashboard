@@ -181,30 +181,30 @@ const displayForecast = function (weather) {
 
     // create a container for the day
     let dayEl = document.createElement("div");
-    dayEl.classList = "card col-md-5-12 justify-space-between align-center";
+    dayEl.classList = "card col-md-5-12 space-evenly align-center";
 
     // create div elements for date, icon, temp, wind and humidity
     var numericDateEl = document.createElement("div");
-    // numericDateEl.classList = "list-element";
+    numericDateEl.classList = "forecast-date";
     numericDateEl.textContent = numericDate;
 
     var iconEl = document.createElement("div");
-    // iconEl.classList = "list-element";
+    iconEl.classList = "forecast-element";
     var iconImg = document.createElement("img");
     iconImg.id = "cwicon";
     iconImg.src = iconFormat;
     iconEl.appendChild(iconImg);
 
     var celsiusTempEl = document.createElement("div");
-    // celsiusTempEl.classList = "list-element";
+    celsiusTempEl.classList = "forecast-element";
     celsiusTempEl.textContent = "Temp: " + celsiusTemp;
 
     var windEl = document.createElement("div");
-    // windEl.classList = "list-element";
+    windEl.classList = "forecast-element";
     windEl.textContent = "Wind: " + windMPHF;
 
     var humEl = document.createElement("span");
-    // humEl.classList = "list-element";
+    humEl.classList = "forecast-element";
     humEl.textContent = "Humidity: " + humidityPerc;
 
     // append date, temp, wind, humidity spans to day div
