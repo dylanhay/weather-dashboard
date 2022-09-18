@@ -17,6 +17,6 @@ Weather Dashboard that displays the current weather and five-day forecast for a 
 * JavaScript
 
 ## Landing Page
-
+![Screenshot](./assets/images/weather-dashboard-land.png "Landing Page")
 ## Contribution
 Made with ❤️ by Dylan Hay
