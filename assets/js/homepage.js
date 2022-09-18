@@ -51,6 +51,11 @@ const humFormatter = function (humNumeric) {
   return humFormat;
 };
 
+const iconFormatter = function (iconcode) {
+  var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+  return iconurl;
+};
+
 // get value from form input
 var formSubmitHandler = function (event) {
   event.preventDefault();
@@ -61,7 +66,7 @@ var formSubmitHandler = function (event) {
     getForecast(cityname);
     displaySearchHistory(cityname);
     nameInputEl.value = "";
-  }  else {
+  } else {
     alert("Please enter a city");
   }
 };
@@ -102,20 +107,32 @@ var displayWeather = function (weather, searchTerm) {
   cityContainerEl.textContent = "";
   citySearchTerm.textContent = searchTerm;
 
+  // console.log(weather);
+
+  // console.log(weather.weather[0].icon);
+
   //format date, title, temp, wind, humidity
   let dateFormatted = longDateFormat(weather.dt);
   let cityNameDate = searchTerm + " - " + dateFormatted;
   let tempFormat = tempKtoC(weather.main.temp);
   let windFormat = windMStoMPH(weather.wind.speed);
   let humFormat = humFormatter(weather.main.humidity);
+  let iconFormat = iconFormatter(weather.weather[0].icon);
 
   // create a container for current city weather
   var cityEl = document.createElement("div");
   cityEl.classList = "list-item flex-row justify-space-between align-center";
 
-  // create span elements for title (city/date), temp, wind and humidity
+  // create span elements for title (city/date), icon, temp, wind and humidity
   var titleEl = document.createElement("span");
   titleEl.textContent = cityNameDate;
+
+  var iconEl = document.createElement("span");
+  iconEl.classList = "list-element";
+  var iconImg = document.createElement("img");
+  iconImg.id = "cwicon";
+  iconImg.src = iconFormat;
+  iconEl.appendChild(iconImg);
 
   var tempEl = document.createElement("span");
   tempEl.textContent = "Temperature: " + tempFormat;
@@ -132,11 +149,16 @@ var displayWeather = function (weather, searchTerm) {
   // append title (city & date), temp, wind, humidity spans to parent container
   cityEl.appendChild(titleEl);
   cityContainerEl.appendChild(cityEl);
+  cityContainerEl.appendChild(iconEl);
   cityContainerEl.appendChild(tempEl);
   cityContainerEl.appendChild(windEl);
   cityContainerEl.appendChild(humEl);
 };
 
+
+
+
+//build and display front-end for five day forecast
 const displayForecast = function (weather) {
   // clear old content
   forecastContainerEl.textContent = "";
@@ -187,20 +209,19 @@ const displayForecast = function (weather) {
 };
 
 const displaySearchHistory = function (searchTerm) {
-    // event.preventDefault();
-  
+  // event.preventDefault();
+
   // create a div for the searched city
   let searchEl = document.createElement("div");
   searchEl.textContent = searchTerm;
   searchEl.classList = "list-item flex-row align-center justify-center";
-  searchEl.onclick = function () {histButtonHandler(searchTerm)};
+  searchEl.onclick = function () {
+    histButtonHandler(searchTerm);
+  };
 
   // append search div to parent history container
   historyContainerEl.appendChild(searchEl);
 };
-
-
-
 
 //get value from history button selection
 const histButtonHandler = function (cityname) {
