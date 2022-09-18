@@ -65,6 +65,10 @@ p {
 } */
 
 
+#search-history {
+  font-size: 16px;
+  margin: 5%;
+}
 
 .btn {
   font-size: 1.3rem;
@@ -197,9 +201,6 @@ p {
 
 /* CUSTOM */
 
-#search-history {
-  margin: 3%;
-}
 
 .current-date {
   padding: 1%;
@@ -226,6 +227,11 @@ p {
 
 #cwicon {
   margin-top: 7px;
+}
+
+#clear-history {
+  font-size: 16px;
+  margin-bottom: 3%;
 }
 
 /* FORM */

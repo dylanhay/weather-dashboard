@@ -6,7 +6,8 @@ var cityContainerEl = document.querySelector("#city-container");
 var citySearchTerm = document.querySelector("#city-search-term");
 var forecastContainerEl = document.querySelector("#forecast-container");
 var historyContainerEl = document.querySelector("#search-history");
-// var historyButton = document.querySelector(#history-button);
+var clearHistoryButton = document.querySelector("#clear-history");
+clearHistoryButton.style.visibility = 'hidden';
 
 //convert unix timestamp to MM/DD/YYYY
 const shortDateFormat = function (unixDate) {
@@ -226,10 +227,13 @@ const displaySearchHistory = function (searchTerm) {
   searchEl.classList = "list-item flex-row align-center justify-center";
   searchEl.onclick = function () {
     histButtonHandler(searchTerm);
+    
   };
 
   // append search div to parent history container
   historyContainerEl.appendChild(searchEl);
+  //make clear history button visible
+  clearHistoryButton.style.visibility = 'visible';
 };
 
 //load current weather forecast for historical city button selection
@@ -237,5 +241,32 @@ const histButtonHandler = function (cityname) {
   getWeather(cityname);
   getForecast(cityname);
 };
+
+
+const clearHistoryButtonVis = function () {
+
+}
+
+
+
+
+clearHistoryButton.onclick = function () {
+  historyContainerEl.textContent = "";
+  clearHistoryButton.style.visibility = 'hidden';
+}
+
+
+// const clearHistoryHandler = function (event) {
+//   event.preventDefault();
+
+//   if (cityname) {
+//     getWeather(cityname);
+//     getForecast(cityname);
+//     displaySearchHistory(cityname);
+//     nameInputEl.value = "";
+//   } else {
+//     alert("Please enter a city");
+//   }
+// }
 
 cityFormEl.addEventListener("submit", formSubmitHandler);
