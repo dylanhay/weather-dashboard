@@ -244,6 +244,7 @@ const histButtonHandler = function (cityname) {
 clearHistoryButton.onclick = function () {
   historyContainerEl.textContent = "";
   clearHistoryButton.style.visibility = "hidden";
+  localStorage.clear();
 };
 
 cityFormEl.addEventListener("submit", formSubmitHandler);
