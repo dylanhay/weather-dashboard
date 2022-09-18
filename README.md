@@ -1,7 +1,7 @@
 # Weather Dashboard
 
 ## Description
-Weather Dashboard that displays the current weather and five-day forecast for a given city via dynamically updated HTML and CSS. Weather data is being retrieved from the OpenWeather API (openweatherapp.org/api)
+Weather Dashboard that displays the current weather and five-day forecast for a given city via dynamically updated HTML and CSS. Weather data is being retrieved from the OpenWeather API (openweathermap.org/api)
 
 ## Table of Contents
 [Deployed Application](#deployed-application)  
