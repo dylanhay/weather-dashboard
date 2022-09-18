@@ -111,7 +111,7 @@ var displayWeather = function (weather, searchTerm) {
 
   //format date, title, temp, wind, humidity
   let dateFormatted = longDateFormat(weather.dt);
-  let cityNameDate = searchTerm + " - " + dateFormatted;
+  let dateFormat = dateFormatted;
   let tempFormat = tempKtoC(weather.main.temp);
   let windFormat = windMStoMPH(weather.wind.speed);
   let humFormat = humFormatter(weather.main.humidity);
@@ -119,15 +119,16 @@ var displayWeather = function (weather, searchTerm) {
 
   // create a container for current city name and date
   var cityEl = document.createElement("div");
-  cityEl.classList = "list-item flex-row justify-space-between align-center";
+  cityEl.classList = "flex-row justify-center align-center";
 
   // create a container for elements
   var flexEl = document.createElement("div");
   flexEl.classList = "flex-parent";
 
   // create elements for title (city/date), icon, temp, wind and humidity
-  var titleEl = document.createElement("span");
-  titleEl.textContent = cityNameDate;
+  var titleEl = document.createElement("div");
+  titleEl.classList = "current-date";
+  titleEl.textContent = dateFormat;
 
   var iconEl = document.createElement("div");
   iconEl.classList = "col-md-3 flex-column justify-center align-center";
@@ -164,13 +165,13 @@ const displayForecast = function (weather) {
   // clear old content
   forecastContainerEl.textContent = "";
 
-  // console.log(weather);
+  console.log(weather);
   // console.log(numericDate);
   // console.log(celsiusTemp);
   // console.log(windMPHF);
   // console.log(humidityPerc);
 
-  for (var i = 6; i < 40; i += 8) {
+  for (var i = 7; i < 40; i += 8) {
     //format date, temp, wind, humidity
     let numericDate = shortDateFormat(weather.list[i].dt);
     let celsiusTemp = tempKtoC(weather.list[i].main.temp);
@@ -180,30 +181,30 @@ const displayForecast = function (weather) {
 
     // create a container for the day
     let dayEl = document.createElement("div");
-    dayEl.classList = "col-md-5-12 justify-space-between align-center";
+    dayEl.classList = "card col-md-5-12 justify-space-between align-center";
 
-    // create span elements for date, icon, temp, wind and humidity
-    var numericDateEl = document.createElement("span");
-    numericDateEl.classList = "list-element";
+    // create div elements for date, icon, temp, wind and humidity
+    var numericDateEl = document.createElement("div");
+    // numericDateEl.classList = "list-element";
     numericDateEl.textContent = numericDate;
 
-    var iconEl = document.createElement("span");
-    iconEl.classList = "list-element";
+    var iconEl = document.createElement("div");
+    // iconEl.classList = "list-element";
     var iconImg = document.createElement("img");
     iconImg.id = "cwicon";
     iconImg.src = iconFormat;
     iconEl.appendChild(iconImg);
 
-    var celsiusTempEl = document.createElement("span");
-    celsiusTempEl.classList = "list-element";
-    celsiusTempEl.textContent = "Temperature: " + celsiusTemp;
+    var celsiusTempEl = document.createElement("div");
+    // celsiusTempEl.classList = "list-element";
+    celsiusTempEl.textContent = "Temp: " + celsiusTemp;
 
-    var windEl = document.createElement("span");
-    windEl.classList = "list-element";
+    var windEl = document.createElement("div");
+    // windEl.classList = "list-element";
     windEl.textContent = "Wind: " + windMPHF;
 
     var humEl = document.createElement("span");
-    humEl.classList = "list-element";
+    // humEl.classList = "list-element";
     humEl.textContent = "Humidity: " + humidityPerc;
 
     // append date, temp, wind, humidity spans to day div

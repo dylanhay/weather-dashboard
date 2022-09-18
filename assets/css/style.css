@@ -33,9 +33,9 @@ h6 {
   line-height: 1.25;
 }
 
-h2 {
+/* h2 {
   padding-bottom: 1%;
-}
+} */
 
 main {
   margin: 20px auto;
@@ -46,9 +46,9 @@ p {
   font-size: 1.2rem;
 }
 
-.list-element {
+/* .list-element {
   display: block;
-}
+} */
 
 .flex-parent {
   display: flex;
@@ -115,6 +115,7 @@ p {
   padding: 3% 4%;
   background-color: var(--dark);
   color: var(--primary);
+  text-align: center;
 }
 
 .hero p {
@@ -128,12 +129,16 @@ p {
   padding: 0 10px;
   display: inline-block;
   border-radius: var(--border-radius);
-  box-shadow: 6px 5px var(--light-dark);
+
+  
 }
 
 .list-group {
   padding: 0;
   list-style: none;
+  border-radius: var(--border-radius);
+  box-shadow: 6px 5px var(--light-dark);
+
 }
 
 .list-item {
@@ -174,12 +179,18 @@ p {
 .card-header {
   color: var(--primary);
   background-color: var(--dark);
-  padding: 2.5%;
+  padding: 10px;
   border-radius: calc(0.18rem - 1px) calc(0.18rem - 1px) 0 0;
 }
 
 .card-body {
   padding: 2.5%;
+}
+
+.current-date {
+  padding: 1%;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 /* FORM */
@@ -247,6 +258,7 @@ p {
 
 .justify-center {
   justify-content: center;
+  text-align: center;
 }
 
 .align-stretch {
