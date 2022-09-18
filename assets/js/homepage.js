@@ -9,6 +9,7 @@ var citySearchTerm = document.querySelector("#city-search-term");
 var forecastContainerEl = document.querySelector("#forecast-container");
 var historyContainerEl = document.querySelector("#search-history");
 var clearHistoryButton = document.querySelector("#clear-history");
+var userSearchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
 //hide clear history button initially
 clearHistoryButton.style.visibility = "hidden";
@@ -71,6 +72,7 @@ var formSubmitHandler = function (event) {
     getWeather(cityname);
     getForecast(cityname);
     displaySearchHistory(cityname);
+    localStorage.setItem("search", JSON.stringify(userSearchHistory));
     nameInputEl.value = "";
   } else {
     alert("Please enter a city");
