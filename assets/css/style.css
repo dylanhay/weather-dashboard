@@ -1,10 +1,10 @@
 :root {
-  --primary: #ccdad1;
+  --primary: #9bc1d5;
   --secondary: #9caea9;
   --tertiary: #788585;
   --light-dark: #6f6866;
   --dark: #38302e;
-  --border-radius: .3rem;
+  --border-radius: 0.3rem;
 }
 
 * {
@@ -33,6 +33,10 @@ h6 {
   line-height: 1.25;
 }
 
+h2 {
+  padding-bottom: 1%;
+}
+
 main {
   margin: 20px auto;
   width: 94%;
@@ -46,9 +50,20 @@ p {
   display: block;
 }
 
- .btn {
+.flex-parent {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* .current-element {
+  justify-content: space-between;
+  align-content: center;
+  flex: 0 1 auto;
+} */
+
+.btn {
   font-size: 1.3rem;
-  text-decoration:none;
+  text-decoration: none;
   padding: 6px 5px;
   width: 100%;
   display: block;
@@ -62,7 +77,7 @@ p {
   transform: translate(-1px, -1px);
 }
 
- .btn:hover {
+.btn:hover {
   color: var(--primary);
   background-color: var(--tertiary);
   transform: translate(0, 0);
@@ -89,7 +104,7 @@ p {
   font-size: 1.2rem;
 }
 
- .btn-back:hover {
+.btn-back:hover {
   color: var(--primary);
   background-color: var(--tertiary);
   transform: translate(0, 0);
@@ -137,7 +152,7 @@ p {
 .status-icon {
   padding: 2px 5px;
   margin: 0 5px;
-  background-color: rgba(255,255,255, 1);
+  background-color: rgba(255, 255, 255, 1);
   border-radius: var(--border-radius);
 }
 
@@ -160,7 +175,7 @@ p {
   color: var(--primary);
   background-color: var(--dark);
   padding: 2.5%;
-  border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
+  border-radius: calc(0.18rem - 1px) calc(0.18rem - 1px) 0 0;
 }
 
 .card-body {
@@ -202,7 +217,6 @@ p {
   text-transform: uppercase;
 }
 
-
 /* FLEX CONTENT */
 .flex-row {
   display: flex;
@@ -224,7 +238,7 @@ p {
 }
 
 .justify-flex-start {
-  justify-content: flex-start
+  justify-content: flex-start;
 }
 
 .justify-flex-end {
@@ -245,6 +259,7 @@ p {
 
 .align-center {
   align-items: center;
+  text-align: center;
 }
 
 .col-auto {
@@ -349,7 +364,6 @@ p {
     flex: 0 0 100%;
   }
 }
-
 
 /* col-md */
 @media screen and (min-width: 768px) {
@@ -521,7 +535,6 @@ p {
   float: left;
 }
 
-
 .col-xs-8-12,
 .col-sm-8-12,
 .col-md-8-12,
@@ -536,7 +549,6 @@ p {
   float: left;
 }
 
-
 .col-xs-10-12,
 .col-sm-10-12,
 .col-md-10-12,
@@ -550,9 +562,6 @@ p {
   width: 10%;
   float: left;
 }
-
-
-
 
 @media (min-width: 768px) {
   .col-sm-5-12 {
@@ -573,11 +582,11 @@ p {
     width: 20%;
     float: left;
   }
-   .col-md-8-12 {
+  .col-md-8-12 {
     width: 12.5%;
     float: left;
   }
-   .col-md-10-12 {
+  .col-md-10-12 {
     width: 10%;
     float: left;
   }
@@ -587,11 +596,11 @@ p {
     width: 20%;
     float: left;
   }
-   .col-lg-8-12 {
+  .col-lg-8-12 {
     width: 12.5%;
     float: left;
   }
-   .col-lg-10-12 {
+  .col-lg-10-12 {
     width: 10%;
     float: left;
   }

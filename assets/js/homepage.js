@@ -109,8 +109,6 @@ var displayWeather = function (weather, searchTerm) {
 
   // console.log(weather);
 
-  // console.log(weather.weather[0].icon);
-
   //format date, title, temp, wind, humidity
   let dateFormatted = longDateFormat(weather.dt);
   let cityNameDate = searchTerm + " - " + dateFormatted;
@@ -119,44 +117,47 @@ var displayWeather = function (weather, searchTerm) {
   let humFormat = humFormatter(weather.main.humidity);
   let iconFormat = iconFormatter(weather.weather[0].icon);
 
-  // create a container for current city weather
+  // create a container for current city name and date
   var cityEl = document.createElement("div");
   cityEl.classList = "list-item flex-row justify-space-between align-center";
 
-  // create span elements for title (city/date), icon, temp, wind and humidity
+  // create a container for elements
+  var flexEl = document.createElement("div");
+  flexEl.classList = "flex-parent";
+
+  // create elements for title (city/date), icon, temp, wind and humidity
   var titleEl = document.createElement("span");
   titleEl.textContent = cityNameDate;
 
-  var iconEl = document.createElement("span");
-  iconEl.classList = "list-element";
+  var iconEl = document.createElement("div");
+  iconEl.classList = "col-md-3 flex-column justify-center align-center";
   var iconImg = document.createElement("img");
   iconImg.id = "cwicon";
   iconImg.src = iconFormat;
   iconEl.appendChild(iconImg);
 
-  var tempEl = document.createElement("span");
+  var tempEl = document.createElement("div");
   tempEl.textContent = "Temperature: " + tempFormat;
-  tempEl.classList = "list-element";
+  tempEl.classList = "col-md-3 flex-column justify-center align-center";
 
-  var windEl = document.createElement("span");
-  windEl.classList = "list-element";
+  var windEl = document.createElement("div");
+  windEl.classList = "col-md-3 flex-column justify-center align-center";
   windEl.textContent = "Wind: " + windFormat;
 
-  var humEl = document.createElement("span");
-  humEl.classList = "list-element";
+  var humEl = document.createElement("div");
+  humEl.classList = "col-md-3 flex-column justify-center align-center";
   humEl.textContent = "Humidity: " + humFormat;
 
   // append title (city & date), temp, wind, humidity spans to parent container
   cityEl.appendChild(titleEl);
   cityContainerEl.appendChild(cityEl);
-  cityContainerEl.appendChild(iconEl);
-  cityContainerEl.appendChild(tempEl);
-  cityContainerEl.appendChild(windEl);
-  cityContainerEl.appendChild(humEl);
+
+  flexEl.appendChild(iconEl);
+  flexEl.appendChild(tempEl);
+  flexEl.appendChild(windEl);
+  flexEl.appendChild(humEl);
+  cityContainerEl.appendChild(flexEl);
 };
-
-
-
 
 //build and display front-end for five day forecast
 const displayForecast = function (weather) {
@@ -175,15 +176,23 @@ const displayForecast = function (weather) {
     let celsiusTemp = tempKtoC(weather.list[i].main.temp);
     let windMPHF = windMStoMPH(weather.list[i].wind.speed);
     let humidityPerc = humFormatter(weather.list[i].main.humidity);
+    let iconFormat = iconFormatter(weather.list[i].weather[0].icon);
 
     // create a container for the day
     let dayEl = document.createElement("div");
     dayEl.classList = "col-md-5-12 justify-space-between align-center";
 
-    // create span elements for date, temp, wind and humidity
+    // create span elements for date, icon, temp, wind and humidity
     var numericDateEl = document.createElement("span");
     numericDateEl.classList = "list-element";
     numericDateEl.textContent = numericDate;
+
+    var iconEl = document.createElement("span");
+    iconEl.classList = "list-element";
+    var iconImg = document.createElement("img");
+    iconImg.id = "cwicon";
+    iconImg.src = iconFormat;
+    iconEl.appendChild(iconImg);
 
     var celsiusTempEl = document.createElement("span");
     celsiusTempEl.classList = "list-element";
@@ -199,6 +208,7 @@ const displayForecast = function (weather) {
 
     // append date, temp, wind, humidity spans to day div
     dayEl.appendChild(numericDateEl);
+    dayEl.appendChild(iconEl);
     dayEl.appendChild(celsiusTempEl);
     dayEl.appendChild(windEl);
     dayEl.appendChild(humEl);
@@ -208,10 +218,8 @@ const displayForecast = function (weather) {
   }
 };
 
+// search history
 const displaySearchHistory = function (searchTerm) {
-  // event.preventDefault();
-
-  // create a div for the searched city
   let searchEl = document.createElement("div");
   searchEl.textContent = searchTerm;
   searchEl.classList = "list-item flex-row align-center justify-center";
@@ -223,19 +231,10 @@ const displaySearchHistory = function (searchTerm) {
   historyContainerEl.appendChild(searchEl);
 };
 
-//get value from history button selection
+//load current weather forecast for historical city button selection
 const histButtonHandler = function (cityname) {
-  // event.preventDefault();
-  // var cityname = nameInputEl.value.trim();
-
-  // if (cityname) {
   getWeather(cityname);
   getForecast(cityname);
-  // displaySearchHistory(cityname);
-  // nameInputEl.value = "";
-  // } else {
-  //   alert("Please enter a city");
-  // }
 };
 
 cityFormEl.addEventListener("submit", formSubmitHandler);
