@@ -12,11 +12,13 @@ Weather Dashboard that displays the current weather and five-day forecast for a 
 ## Deployed Application
 https://dylanhay.github.io/weather-dashboard/
 ## Built With
+* JavaScript
 * HTML
 * CSS
-* JavaScript
+* Git
+* GitHub Pages
 
 ## Landing Page
 ![Screenshot](./assets/images/weather-dashboard-land.png "Landing Page")
 ## Contribution
-Made with ❤️ by Dylan Hay
+Built by Dylan Hay
