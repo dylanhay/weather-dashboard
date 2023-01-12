@@ -20,6 +20,7 @@ https://dylanhay.github.io/weather-dashboard/
 * JavaScript
 * HTML
 * CSS
+* OpenWeather API
 * Git
 * GitHub Pages
 
